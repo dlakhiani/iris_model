@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+	<world name="default">
+		<include>
+			<uri>model://sun</uri>
+		</include>
+
+		<include>
+			<uri>model://ground_plane</uri>
+		</include>
+
+		<gui>
+			<camera name="camera">
+				<pose>-6.663162 0.1 2 0 0 0</pose>
+			</camera>
+		</gui>  
+
+		<!-- rows -->
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_1</name>
+			<pose>5.752843 -5.123935 0 0 0 3.14</pose>
+		</include>
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_2</name>
+			<pose>5.752843 -3.123935 0 0 0 3.14</pose>
+		</include>
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_3</name>
+			<pose>5.752843 -1.123935 0 0 0 3.14</pose>
+		</include>
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_4</name>
+			<pose>5.752843 1.123935 0 0 0 3.14</pose>
+		</include>
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_5</name>
+			<pose>5.752843 3.123935 0 0 0 3.14</pose>
+		</include>
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall_6</name>
+			<pose>5.752843 5.123935 0 0 0 3.14</pose>
+		</include>
+
+	</world>
+</sdf>

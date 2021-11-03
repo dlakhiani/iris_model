@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<robot name="iris_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find iris_model)/urdf/macros.xacro" />
+
+  <!-- base_link is a fictitious link(frame) that is on the ground right below chassis_link origin -->
+  <link name="base_link">
+    <!-- <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+      iyy="0.0001" iyz="0.0"
+      izz="0.0001" />
+    </inertial> -->
+    <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.001 0.001 0.001" />
+    </geometry>
+    </visual>
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="chassis_link" />
+  </joint>
+
+  <link name="chassis_link">
+    <visual>
+      <origin xyz="0 0 ${footprint_vertical_offset}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
+      <material name="Grey" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${footprint_vertical_offset}"/>
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
+    </collision>
+    <inertial>
+    <!-- Center of mass -->
+    <origin xyz="0.012  0.002 0.067" rpy="0 0 0"/>
+    <mass value="16.523"/>
+    <!-- Moments of inertia: ( chassis without wheels ) -->
+    <inertia
+      ixx="0.3136" ixy="-0.0008" ixz="0.0164"
+      iyy="0.3922" iyz="-0.0009"
+      izz="0.4485"/>
+    </inertial>
+  </link>
+
+  <joint name="joint_sensor_laser" type="fixed">
+    <origin xyz="0.15 0 0.05" rpy="0 0 0"/>
+    <parent link="chassis_link"/>
+    <child link="sensor_laser"/>
+  </joint>
+
+  <link name="sensor_laser">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <xacro:cylinder_inertia mass="1" r="0.05" l="0.1" />
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:wheel prefix="front_left" trans_x="${wheel_horizontal_separation}" trans_y="${wheel_vertical_separation+wheel_width/2}" trans_z="${wheel_vertical_offset}"/>
+  <xacro:wheel prefix="front_right" trans_x="${wheel_horizontal_separation}" trans_y="${-wheel_vertical_separation-wheel_width/2}" trans_z="${wheel_vertical_offset}"/>
+  <xacro:wheel prefix="rear_left" trans_x="${-wheel_horizontal_separation}" trans_y="${wheel_vertical_separation+wheel_width/2}" trans_z="${wheel_vertical_offset}"/>
+  <xacro:wheel prefix="rear_right" trans_x="${-wheel_horizontal_separation}" trans_y="${-wheel_vertical_separation-wheel_width/2}" trans_z="${wheel_vertical_offset}"/>
+
+  <xacro:include filename="$(find iris_model)/urdf/robot.gazebo" />
+
+</robot>

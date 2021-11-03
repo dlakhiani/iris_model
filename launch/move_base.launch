@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<launch>
+
+    <node pkg="tf" type="static_transform_publisher" name="map_chassis_broadcaster"
+      args="0 0 0 0 0 0 chassis_link map 100"/>
+
+    <node pkg="move_base" type="move_base" name="move_base" output="log">
+        <param name="controller_frequency" value="10.0"/>
+        <rosparam file="$(find iris_model)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find iris_model)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find iris_model)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find iris_model)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find iris_model)/config/trajectory_planner.yaml" command="load" />
+
+        <remap from="cmd_vel" to="cmd_vel"/>
+        <remap from="odom" to="odom"/>
+        <remap from="scan" to="/iris_model/laser/scan"/>
+        <remap from="map" to="map" />
+    </node>
+
+</launch>
