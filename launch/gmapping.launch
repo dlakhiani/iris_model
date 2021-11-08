@@ -2,7 +2,7 @@
 
 <launch>
   <arg name="scan_topic"  default="/iris_model/laser/scan" />
-  <arg name="base_frame"  default="chassis_link"/>
+  <arg name="base_frame"  default="base_link"/>
   <arg name="odom_frame"  default="odom"/>
   
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find iris_model)/launch/world.launch">
+    <arg name="rviz" value="true" />
+  </include>
+
+  <include file="$(find iris_model)/launch/amcl.launch"></include>
+  
+</launch>
