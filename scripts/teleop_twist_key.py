@@ -37,7 +37,6 @@ import termios
 import tty
 
 msg = """
-Control Your Turtlebot!
 ---------------------------
 Moving around:
    u    i    o
@@ -98,7 +97,7 @@ if __name__ == "__main__":
     settings = termios.tcgetattr(sys.stdin)
 
     rospy.init_node('turtlebot_teleop')
-    pub = rospy.Publisher('~cmd_vel', Twist, queue_size=5)
+    pub = rospy.Publisher('cmd_vel', Twist, queue_size=5)
 
     x = 0
     th = 0
