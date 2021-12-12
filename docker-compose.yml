@@ -2,8 +2,8 @@ version: "3.4"
 
 services:
   # ROS remote development environment
-  ros-develop:
-    image: nav/ros-develop:0.1
+  ros-develop-gmapping:
+    image: nav/ros-develop-gmapping:0.1
     build:
       context: .
       dockerfile: ./docker/ros-develop-nvidia.dockerfile
@@ -17,4 +17,21 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     command: roslaunch iris_model bringup_iris_gmapping.launch
+    # command: tail -F all
+
+  ros-develop-amcl:
+    image: nav/ros-develop-amcl:0.1
+    build:
+      context: .
+      dockerfile: ./docker/ros-develop-nvidia.dockerfile
+    runtime: nvidia
+    tty: true
+    environment:
+      - "DISPLAY"
+      - "QT_X11_NO_MITSHM=1"
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,display
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: roslaunch iris_model bringup_iris_amcl.launch
     # command: tail -F all
